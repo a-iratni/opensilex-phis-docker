@@ -78,7 +78,7 @@ As a guest:
 
 ## Remove existing containers
 
-**/!\ WARNING /!\** This will destroy all the data loaded into the OPENSILEX-PHIS instance
+**/!\ WARNING /!\\** This will destroy all the data loaded into the OPENSILEX-PHIS instance
 
 Having your instance of OPENSILEX-PHIS running type the following commands:
 

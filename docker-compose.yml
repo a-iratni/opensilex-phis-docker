@@ -1,0 +1,96 @@
+version: "3.5"
+
+services:
+   mongodb:
+      container_name: mongodb
+      image: 'bitnami/mongodb:latest'
+      networks:
+         - backend
+      labels:
+         kompose.service.type: nodeport
+      ports:
+         - "27017"
+      volumes:
+         - mongodb_data:/bitnami
+
+   postgres:
+      container_name: postgres
+      build: ./postgres
+      networks:
+         - backend
+      ports:
+         - "5432"
+      environment:
+         - POSTGRES_PASSWORD=azerty
+         - POSTGRES_USER=phis
+         - POSTGRES_DB=phis
+      volumes:
+         - postgresql_data:/var/lib/postgresql/data
+
+   rdf4j:
+      container_name: rdf4j
+      build: './rdf4j'
+      networks:
+         - backend
+      ports:
+         - "8887:8080"
+      volumes:
+         - rdf4j_data:/var/rdf4j
+      environment:
+         - JAVA_OPTS='-Dorg.eclipse.rdf4j.appdata.basedir=/var/rdf4j/'
+      
+   phis-webapp:
+      container_name: phis-webapp
+      build: ./phis-webapp
+      networks:
+         - backend
+         - frontend
+      ports:
+         - "8888:80"
+      volumes:
+         - web_data:/var/www/html/
+      environment:
+         - PHIS_WS_URL=http://phis-ws:8080/phis2ws
+         - PHIS_WEBAPP_HOST=localhost
+         - PHIS_WEBAPP_PORT=8888
+
+   phis-ws:
+      container_name: phis-ws
+      build: 
+         context: ./phis-ws
+         args: 
+            PHIS_WS_HOST: localhost
+            PHIS_WS_PORT: 8889
+            PHIS_WEBAPP_HOST: localhost
+            PHIS_WEBAPP_PORT: 8888
+            MONGO_HOST: mongodb
+            MONGO_PORT: 27017
+            PG_HOST: postgres
+            PG_PORT: 5432
+            RDF4J_HOST: rdf4j
+            RDF4J_PORT: 8080
+            BASE_URI: http://www.opensilex.org/
+      networks:
+         - backend      
+         - frontend
+      depends_on:
+         - "rdf4j"
+         - "mongodb"
+         - "postgres"
+      ports:
+         - "8889:8080"
+      volumes:
+         - ws_docs:/home/phis/documents
+         - ws_logs:/home/phis/logs
+
+networks:
+   frontend:
+   backend:
+
+volumes:
+   postgresql_data:
+   mongodb_data:
+   rdf4j_data:
+   web_data:
+   ws_docs:
+   ws_logs:

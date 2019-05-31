@@ -1,87 +1,73 @@
-# NPEC PHIS installation, documentation and development files
+# INRA-MISTEA OPENSILEX-PHIS installation, documentation and development files
 
-For more information, please contact Jennifer de Rue or Sven Warris.
+This docker set of images is 
 
-## Installing services
+## Prerequesites
+
+You need to have git, docker and docker-compose installed on your machine
+
+[git installation](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+[docker installation](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+
+[docker-compose installation](https://docs.docker.com/compose/install/)
+
+## Start and install docker containers
  
-To install and run PHIS, execute these commands:
+To install and run OPENSILEX-PHIS, execute these commands:
 
 ```{bash}
-git clone https://git.wur.nl/NPEC/phis.git
-cd phis/docker
+git clone https://github.com/vincentmigot/PHIS-docker.git
+cd PHIS-docker
 docker-compose up -d
 ```
 
-This will create 4 volumes to store database data and web server configurations. It will launch images for the tomcat web service, apache php web application, mongodb and postgresql. Adminer is installed to access the postgresql database. Docker networks 'frontend' and 'backend' are also activated. 
-
-To access the API, please add 'tomcat' as alias to localhost.
-
-## Installing PHIS configuration, web service and application
-
-Run docker build:
+After this first initialization the only commands, you will have to execute to run OPENSILEX-PHIS is:
 
 ```{bash}
-cd phis
-docker build --network=docker_frontend --network=docker_backend -t phis:latest .
+cd PHIS-docker
+docker-compose up -d
 ```
 
-Now enter interactive shell:
+This will create volumes to store database data and web server configurations. 
+It will launch images for the tomcat web service, apache php web application, rdf4j, mongodb and postgresql. 
+Docker networks 'frontend' and 'backend' are also activated. 
+
+## Stop docker containers
+
+To stop all the running containers, execute this commands:
 
 ```{bash}
-docker run --network=docker_frontend --network=docker_backend \ 
-	--volume docker_web_data:/var/www/html \ 
-	--volume docker_tomcat_conf:/tomcat/conf \ 
-	--volume docker_tomcat_webapps:/tomcat/webapps \ 
-	-i -t phis:latest  /bin/bash
+cd PHIS-docker
+docker-compose down
 ```
 
-From this shell run these commands:
+## Initialize databases
 
-```{bash}
-cd phis-webapp
-composer update
-sed -i 's/localhost:8084\/phis-ws\/rest/tomcat:8080\/phis2ws\/rest/g' config/*.php
-sed -i 's/localhost:8084\/phis2ws/tomcat:8080\/phis2ws/g' config/*.php
-sed -i 's/localhost/php/g' config/*.php
-cd ..
-sudo cp -r phis-webapp /var/www/html
-sudo chown -R www-data:www-data /var/www/html 
+Once all services are up and running execute the following command the first time to populate databases:
 
-sudo cp /home/phis/phis-ws/phis2-ws/target/phis2ws-v0.1.war /tomcat/webapps/phis2ws.war
-sudo cp /home/phis/tomcat/webapps/*war /tomcat/webapps/
-sudo cp /home/phis/tomcat/conf/tomcat-users.xml /tomcat/conf/
-sudo cp /home/phis/tomcat/webapps/manager/META-INF/context.xml /tomcat/webapps/manager/META-INF/
-sudo cp /home/phis/tomcat/conf/catalina.properties /tomcat/conf/catalina.properties
+```
+docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
+docker exec -it postgres /bin/bash /tmp/seed-data.sh
 ```
 
-Please provide tokens and password (*phis*) when requested.
+## Access to OPENSILEX-PHIS
 
-Restart services outside container:
-
-```{bash}
-docker-compose restart php tomcat
-```
-
-In PHIS interactive shell, add repository:
-
-```{bash}
-cat rdf4j.sh | eclipse-rdf4j-2.4.1/bin/console.sh
-```
-
-Now these services are available:
-
-For local hosts
-
-API - http://tomcat:8080/phis2ws
-Webapp - http://localhost/phis-webapp/ 
-
-For remote hosts
-
-API - http://<servername>:8080/phis2ws
-Webapp - http://<servername>/phis-webapp/
+Once containers are up and running, you can access to OPENSILEX threw the following links:
 
 
--
+Webapp: (http://localhost:8888/phis-webapp)
 
+Web services: (http://localhost:8889/phis2ws)
 
+RDF4J Workbench: (http://localhost:8887/rdf4j-workbench)
 
+You can login on Webapp with the following credentials
+
+As an administrator:
+- Login -> admin@opensilex.org
+- Password -> admin
+
+As a guest:
+- Login -> guest@opensilex.org
+- Password -> guest

@@ -27,6 +27,7 @@ It will launch images for the tomcat web service, apache php web application, rd
 Docker networks 'frontend' and 'backend' are also activated. 
 
 **Notes**
+
 After this first initialization the only commands, you will have to execute to run OPENSILEX-PHIS is:
 
 ```{bash}

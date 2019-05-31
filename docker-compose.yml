@@ -33,7 +33,7 @@ services:
       networks:
          - backend
       ports:
-         - "8080"
+         - "8887:8080"
       volumes:
          - rdf4j_data:/var/rdf4j
       environment:
@@ -46,30 +46,30 @@ services:
          - backend
          - frontend
       ports:
-         - "80"
+         - "8888:80"
       volumes:
          - web_data:/var/www/html/
       environment:
          - PHIS_WS_URL=http://phis-ws:8080/phis2ws
-         - PHIS_WEBAPP_HOST=phis.traitcapture.org
-         - PHIS_WEBAPP_PORT=80
+         - PHIS_WEBAPP_HOST=localhost
+         - PHIS_WEBAPP_PORT=8888
 
    phis-ws:
       container_name: phis-ws
       build: 
          context: ./phis-ws
          args: 
-            PHIS_WS_HOST: phisws.traitcapture.org
-            PHIS_WS_PORT: 80
-            PHIS_WEBAPP_HOST: phis.traitcapture.org
-            PHIS_WEBAPP_PORT: 80
+            PHIS_WS_HOST: localhost
+            PHIS_WS_PORT: 8889
+            PHIS_WEBAPP_HOST: localhost
+            PHIS_WEBAPP_PORT: 8888
             MONGO_HOST: mongodb
             MONGO_PORT: 27017
             PG_HOST: postgres
             PG_PORT: 5432
             RDF4J_HOST: rdf4j
             RDF4J_PORT: 8080
-            BASE_URI: http://phis.traitcapture.org/
+            BASE_URI: http://www.opensilex.org/
       networks:
          - backend      
          - frontend
@@ -78,7 +78,7 @@ services:
          - "mongodb"
          - "postgres"
       ports:
-         - "8080"
+         - "8889:8080"
       volumes:
          - ws_docs:/home/phis/documents
          - ws_logs:/home/phis/logs

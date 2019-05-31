@@ -19,14 +19,21 @@ To install and run OPENSILEX-PHIS, execute these commands:
 ```{bash}
 git clone https://github.com/vincentmigot/PHIS-docker.git
 cd PHIS-docker
-docker-compose up -d
+sudo docker-compose up -d
 ```
 
 After this first initialization the only commands, you will have to execute to run OPENSILEX-PHIS is:
 
 ```{bash}
 cd PHIS-docker
-docker-compose up -d
+sudo docker-compose up -d
+```
+
+If you change any configuration parameters in docker-compose.yml use the following command to restart your containers:
+
+```{bash}
+cd PHIS-docker
+sudo docker-compose up -d --build
 ```
 
 This will create volumes to store database data and web server configurations. 
@@ -39,7 +46,7 @@ To stop all the running containers, execute this commands:
 
 ```{bash}
 cd PHIS-docker
-docker-compose down
+sudo docker-compose down
 ```
 
 ## Initialize databases
@@ -47,8 +54,8 @@ docker-compose down
 Once all services are up and running execute the following command the first time to populate databases:
 
 ```
-docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
-docker exec -it postgres /bin/bash /tmp/seed-data.sh
+sudo docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
+sudo docker exec -it postgres /bin/bash /tmp/seed-data.sh
 ```
 
 ## Access to OPENSILEX-PHIS
@@ -71,3 +78,17 @@ As an administrator:
 As a guest:
 - Login -> guest@opensilex.org
 - Password -> guest
+
+## Remove existing containers
+
+/!\ WARNING /!\ This will destroy all the data loaded into the OPENSILEX-PHIS instance
+
+Having your instance of OPENSILEX-PHIS running type the following commands:
+
+```{bash}
+sudo docker stop $(sudo docker ps -aq)
+sudo docker rm $(sudo docker ps -aq)
+```
+
+
+

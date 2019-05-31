@@ -22,30 +22,26 @@ cd PHIS-docker
 sudo docker-compose up -d
 ```
 
+This will create volumes to store database data and web server configurations. 
+It will launch images for the tomcat web service, apache php web application, rdf4j, mongodb and postgresql. 
+Docker networks 'frontend' and 'backend' are also activated. 
+
+**Notes**
 After this first initialization the only commands, you will have to execute to run OPENSILEX-PHIS is:
 
 ```{bash}
-cd PHIS-docker
 sudo docker-compose up -d
 ```
 
 If you change any configuration parameters in docker-compose.yml use the following command to restart your containers:
 
 ```{bash}
-cd PHIS-docker
 sudo docker-compose up -d --build
 ```
-
-This will create volumes to store database data and web server configurations. 
-It will launch images for the tomcat web service, apache php web application, rdf4j, mongodb and postgresql. 
-Docker networks 'frontend' and 'backend' are also activated. 
-
-## Stop docker containers
 
 To stop all the running containers, execute this commands:
 
 ```{bash}
-cd PHIS-docker
 sudo docker-compose down
 ```
 

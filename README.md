@@ -1,6 +1,6 @@
 # INRA-MISTEA OPENSILEX-PHIS installation, documentation and development files
 
-This docker set of images is 
+This docker set of images build of full running OPENSILEX-PHIS instance on localhost
 
 ## Prerequesites
 

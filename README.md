@@ -18,54 +18,50 @@ You need to have git, docker and docker-compose installed on your machine
 To install and run OPENSILEX-PHIS, execute these commands:
 
 ```{bash}
-git clone https://github.com/vincentmigot/PHIS-docker.git
-cd PHIS-docker
-sudo docker-compose up -d
+git clone https://github.com/OpenSILEX/opensilex-phis-docker.git
+cd opensilex-phis-docker
+./install.sh
 ```
 
 This will create volumes to store database data and web server configurations. 
 It will launch images for the tomcat web service, apache php web application, rdf4j, mongodb and postgresql. 
 Docker networks 'frontend' and 'backend' are also activated. 
 
+During installation [configuration settings](#configuration-settings-during-installation) will be prompted by the installation script.
+
 **Notes**
 
 After this first initialization the only commands, you will have to execute to run OPENSILEX-PHIS is:
 
 ```{bash}
-sudo docker-compose up -d
+./start.sh
 ```
 
 If you change any configuration parameters in docker-compose.yml use the following command to restart your containers:
 
 ```{bash}
-sudo docker-compose up -d --build
+./rebuild.sh
 ```
 
 To stop all the running containers, execute this commands:
 
 ```{bash}
-sudo docker-compose down
+./stop.sh
 ```
+## Configuration settings during installation
 
-## Initialize databases
+During installation configuration settings will be prompted by the installation script :
 
-Once all services are up and running execute the following command the first time to populate databases:
-
-```
-sudo docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
-sudo docker exec -it postgres /bin/bash /tmp/seed-data.sh
-```
+* **BASEURI**: Template URI for generating variables in the application (Ex: *http://www.opensilex.org/*)
+* **APP_NAME**: Application name (Ex: *OpenSILEX*)
+* **PLATFORM**: Platform id (Ex: *opensilex*)
+* **PLATFORM_CODE**: Platform code (Ex: *OS*)
+* **VERSION**: Source version (Ex: *3.2.5*)
+* **HOSTNAME**: External address (*opensilex.example.com*)
 
 ## Access to OPENSILEX-PHIS
 
-Once containers are up and running, you can access to OPENSILEX threw the following links:
-
-
-Webapp: (http://localhost:8888/phis-webapp)
-
-Web services: (http://localhost:8889/phis2ws)
-
-RDF4J Workbench: (http://localhost:8887/rdf4j-workbench)
+Once containers are up and running, you can access to OPENSILEX through the links given by the install script.
 
 You can login on Webapp with the following credentials
 
@@ -84,8 +80,7 @@ As a guest:
 Having your instance of OPENSILEX-PHIS running type the following commands:
 
 ```{bash}
-sudo docker stop $(sudo docker ps -aq)
-sudo docker rm $(sudo docker ps -aq)
+./uninstall.sh
 ```
 
 

@@ -9,7 +9,7 @@ echo "${bold}Installing Phis containers${reset}"
 sleep 1
 
 if [ "$(docker ps -aq -f name=phis-webapp)" ]; then
-    echo "${bold}${fgRed}Phis is already installed !${fgWhite}${reset}"
+    echo "${bold}${fgRed}Phis is already installed !${reset}"
     exit 1
 fi
 
@@ -17,26 +17,26 @@ echo ""
 echo ""
 
 # Lecture des variables passées par l'utilisateur
-read -e -p "Please enter a value for ${fgCyan}BASEURI${fgWhite} (Template URI for generating variables in the application): " -i "$D_BASE_URI" BASE_URI
-read -e -p "Please enter a value for ${fgCyan}APP_NAME${fgWhite} (Application name): " -i "$D_APP_NAME" APP_NAME
-read -e -p "Please enter a value for ${fgCyan}PLATFORM${fgWhite} (Platform id): " -i "$D_PLATFORM" PLATFORM
-read -e -p "Please enter a value for ${fgCyan}PLATFORM_CODE${fgWhite} (Platform code): " -i "$D_PLATFORM_CODE" PLATFORM_CODE
-read -e -p "Please enter a value for ${fgCyan}VERSION${fgWhite} (Source version): " -i "$D_VERSION" VERSION
-read -e -p "Please enter a value for ${fgCyan}HOSTNAME${fgWhite} (External address): " -i "$D_HOST" HOST
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"BASEURI"$'\001'$reset$'\002'" (Template URI for generating variables in the application): " -i "$D_BASE_URI" BASE_URI
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"APP_NAME"$'\001'$reset$'\002'" (Application name): " -i "$D_APP_NAME" APP_NAME
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"PLATFORM"$'\001'$reset$'\002'" (Platform id): " -i "$D_PLATFORM" PLATFORM
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"PLATFORM_CODE"$'\001'$reset$'\002'" (Platform code): " -i "$D_PLATFORM_CODE" PLATFORM_CODE
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"VERSION"$'\001'$reset$'\002'" (Source version): " -i "$D_VERSION" VERSION
+read -e -p "Please enter a value for "$'\001'$fgCyan$'\002'"HOSTNAME"$'\001'$reset$'\002'" (External address): " -i "$D_HOST" HOST
 
 echo ""
 
-echo "${fgCyan}${bold}BASEURI${reset}${fgWhite} (Template URI for generating variables in the application): ${fgYellow}${bold}$BASE_URI${reset}${fgWhite}"
-echo "${fgCyan}${bold}APP_NAME${reset}${fgWhite} (Application name): ${fgYellow}${bold}$APP_NAME${reset}${fgWhite}"
-echo "${fgCyan}${bold}PLATFORM${reset}${fgWhite} (Platform id): ${fgYellow}${bold}$PLATFORM${reset}${fgWhite}"
-echo "${fgCyan}${bold}PLATFORM_CODE${reset}${fgWhite} (Platform code): ${fgYellow}${bold}$PLATFORM_CODE${reset}${fgWhite}"
-echo "${fgCyan}${bold}VERSION${reset}${fgWhite} (Source version): ${fgYellow}${bold}$VERSION${reset}${fgWhite}"
-echo "${fgCyan}${bold}HOSTNAME${reset}${fgWhite} (External address): ${fgYellow}${bold}$HOST${reset}${fgWhite}"
+echo "${fgCyan}${bold}BASEURI${reset} (Template URI for generating variables in the application): ${fgYellow}${bold}$BASE_URI${reset}"
+echo "${fgCyan}${bold}APP_NAME${reset} (Application name): ${fgYellow}${bold}$APP_NAME${reset}"
+echo "${fgCyan}${bold}PLATFORM${reset} (Platform id): ${fgYellow}${bold}$PLATFORM${reset}"
+echo "${fgCyan}${bold}PLATFORM_CODE${reset} (Platform code): ${fgYellow}${bold}$PLATFORM_CODE${reset}"
+echo "${fgCyan}${bold}VERSION${reset} (Source version): ${fgYellow}${bold}$VERSION${reset}"
+echo "${fgCyan}${bold}HOSTNAME${reset} (External address): ${fgYellow}${bold}$HOST${reset}"
 
 echo ""
 
 while true; do
-        read -p "Are you sure you want to install Pḧis with this parameters ? [${bold}${fgGreen}Y${fgWhite}${reset}/${bold}${fgRed}N${fgWhite}${reset}] : " yn
+        read -p "Are you sure you want to install Pḧis with this parameters ? [${bold}${fgGreen}Y${reset}/${bold}${fgRed}N${reset}] : " yn
         case $yn in
             [Yy]* ) break;;
             [Nn]* ) exit;;

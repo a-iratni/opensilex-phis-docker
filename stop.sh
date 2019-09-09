@@ -9,10 +9,10 @@ echo "${bold}Stopping Phis containers${reset}"
 sleep 1
 
 if [ ! "$(docker ps -aq -f name=phis-webapp)" ]; then
-    echo "${bold}${fgRed}Phis is not installed !${fgWhite}${reset}"
+    echo "${bold}${fgRed}Phis is not installed !${reset}"
     exit 1
 elif [ ! "$(docker ps -aq -f status=running -f name=phis-webapp)" ]; then
-    echo "${bold}${fgRed}Phis is not running !${fgWhite}${reset}"
+    echo "${bold}${fgRed}Phis is not running !${reset}"
     exit 1
 else
     cd $DOCKER_COMPOSE_DIR

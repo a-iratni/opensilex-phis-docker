@@ -20,33 +20,33 @@ do
     HWA=`docker inspect -f "{{ .State.Health.Status }}" phis-webapp`
 
     if [ $HP != "healthy" ]; then
-        echo "postgres: ${fgRed}${bold}$HP${reset}${fgWhite}"
+        echo "postgres: ${fgRed}${bold}$HP${reset}"
     else
-        echo "postgres: ${fgGreen}${bold}$HP${reset}${fgWhite}"
+        echo "postgres: ${fgGreen}${bold}$HP${reset}"
     fi
 
     if [ $HM != "healthy" ]; then
-        echo "mongodb: ${fgRed}${bold}$HM${reset}${fgWhite}" 
+        echo "mongodb: ${fgRed}${bold}$HM${reset}" 
     else
-        echo "mongodb: ${fgGreen}${bold}$HM${reset}${fgWhite}"
+        echo "mongodb: ${fgGreen}${bold}$HM${reset}"
     fi
 
     if [ $HF != "healthy" ]; then
-        echo "rdf4j: ${fgRed}${bold}$HF${reset}${fgWhite}"
+        echo "rdf4j: ${fgRed}${bold}$HF${reset}"
     else
-        echo "rdf4j: ${fgGreen}${bold}$HF${reset}${fgWhite}"
+        echo "rdf4j: ${fgGreen}${bold}$HF${reset}"
     fi
 
     if [ $HWS != "healthy" ]; then
-        echo "phis-ws: ${fgRed}${bold}$HWS${reset}${fgWhite}"
+        echo "phis-ws: ${fgRed}${bold}$HWS${reset}"
     else
-        echo "phis-ws: ${fgGreen}${bold}$HWS${reset}${fgWhite}"
+        echo "phis-ws: ${fgGreen}${bold}$HWS${reset}"
     fi
 
     if [ $HWA != "healthy" ]; then
-        echo "phis-webapp: ${fgRed}${bold}$HWA${reset}${fgWhite}"
+        echo "phis-webapp: ${fgRed}${bold}$HWA${reset}"
     else
-        echo "phis-webapp: ${fgGreen}${bold}$HWA${reset}${fgWhite}"
+        echo "phis-webapp: ${fgGreen}${bold}$HWA${reset}"
     fi  
     
     echo "------------------------"

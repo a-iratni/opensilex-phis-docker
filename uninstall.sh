@@ -9,11 +9,11 @@ echo "${bold}Uninstalling Phis containers${reset}"
 sleep 1
 
 if [ ! "$(docker ps -aq -f name=phis-webapp)" ]; then
-    echo "${bold}${fgRed}Phis not installed !${fgWhite}${reset}"
+    echo "${bold}${fgRed}Phis not installed !${reset}"
     exit 1
 else
     while true; do
-        read -p "Are you sure you want to uninstall all Phis containers ? All data will be fully and irreversibly erased ! [${bold}${fgGreen}Y${fgWhite}${reset}/${bold}${fgRed}N${fgWhite}${reset}] : " yn
+        read -p "Are you sure you want to uninstall all Phis containers ? All data will be fully and irreversibly erased ! [${bold}${fgGreen}Y${reset}/${bold}${fgRed}N${reset}] : " yn
         case $yn in
             [Yy]* ) break;;
             [Nn]* ) exit;;

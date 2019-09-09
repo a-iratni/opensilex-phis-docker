@@ -12,7 +12,7 @@ if [ "$(docker ps -aq -f name=phis-webapp)" ]; then
     cd $DOCKER_COMPOSE_DIR
     docker-compose up -d --build
 else
-    echo "${bold}${fgRed}Phis is not installed !${fgWhite}${reset}"
+    echo "${bold}${fgRed}Phis is not installed !${reset}"
     exit 1
 fi
 

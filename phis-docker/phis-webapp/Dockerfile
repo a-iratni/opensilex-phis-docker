@@ -15,19 +15,20 @@ RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 RUN chown -R www-data:www-data /var/www
 
+ARG VERSION=3.2.1
+ARG PHIS_WEBAPP_PLATFORM=opensilex
+
 USER www-data
 WORKDIR /var/www/html
 
-RUN git clone -b 3.2.1 https://github.com/OpenSILEX/phis-webapp.git
+RUN git clone -b $VERSION https://github.com/OpenSILEX/phis-webapp.git $PHIS_WEBAPP_PLATFORM
 
-ENV PHIS_WS_URL=http://localhost:8080/opensilex
-ENV PHIS_WEBAPP_HOST=localhost:80
-ENV PHIS_WEBAPP_NAME=PHIS
-
-WORKDIR /var/www/html/phis-webapp
+WORKDIR /var/www/html/$PHIS_WEBAPP_PLATFORM
+RUN sed -i 's/\x27phis-webapp\x27/getenv\("PHIS_WEBAPP_PLATFORM"\)/g' config/config.php
 RUN sed -i 's/\x27localhost\x27/getenv\("PHIS_WEBAPP_HOST"\) \. \x27:\x27 \. getenv\("PHIS_WEBAPP_PORT"\)/g' config/config.php
 RUN sed -i 's/\x27Demo\x27/getenv\("PHIS_WEBAPP_NAME"\)/g' config/params.php
-RUN sed -i 's/\x27http:\/\/localhost:8080\/opensilex/getenv\("PHIS_WS_URL"\) \. \x27/g' config/web_services.php
+RUN sed -i 's/\x27WS_PHIS_PATH\x27\x2C \x27http:\/\/localhost:8080\/opensilex/\x27WS_PHIS_PATH\x27\x2C getenv\("PHIS_WS_URL"\) \. \x27/g' config/web_services.php
+RUN sed -i 's/\x27WS_PHIS_PATH_DOC\x27\x2C \x27http:\/\/localhost:8080\/opensilex/\x27WS_PHIS_PATH_DOC\x27\x2C getenv\("PHIS_WS_DOC_URL"\) \. \x27/g' config/web_services.php
 
 RUN composer install --ignore-platform-reqs
 

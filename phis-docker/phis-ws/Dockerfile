@@ -19,12 +19,12 @@ WORKDIR /home/phis
 RUN mkdir logs
 RUN mkdir documents
 
-ARG VERSION=3.2.1
+ARG VERSION=continuous_integration
 
 # Build app
-RUN git clone -b $VERSION https://github.com/OpenSILEX/phis-ws.git
+RUN git clone -b $VERSION https://github.com/a-iratni/phis-ws.git
 # Add this line for caching dependencies
-RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
+#RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 
 ARG RDF4J_HOST=localhost
 ARG RDF4J_PORT=8080
@@ -48,9 +48,9 @@ ARG PLATFORM_CODE=OS
 
 # Build the configured application
 ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
-RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
+#RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 
 USER root
-RUN cp /home/phis/phis-ws/phis2-ws/target/opensilex-v0.1.war /usr/local/tomcat/webapps/$PLATFORM.war
+#RUN cp /home/phis/phis-ws/phis2-ws/target/opensilex-v0.1.war /usr/local/tomcat/webapps/$PLATFORM.war
 
-ENTRYPOINT /etc/init.d/ssh start && /usr/local/tomcat/bin/catalina.sh run
+ENTRYPOINT /etc/init.d/ssh start && cd /home/phis/phis-ws/phis2-ws && mvn verify

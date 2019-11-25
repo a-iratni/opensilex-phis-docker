@@ -10,5 +10,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: sh install-test.sh
+    - name: Build the stack
+      run: docker-compose up -d
+    - name: run_rdf4j
+      run:  docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
+    - name: run_postgres
+      run:  docker exec -it postgres /bin/bash /tmp/seed-data.sh
+    - name: run_mvn_verify
+      run: docker exec -it phis-ws -w /home/phis/phis-ws/phis2-ws mvn verify
+     

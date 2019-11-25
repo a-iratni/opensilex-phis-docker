@@ -53,4 +53,4 @@ ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
 USER root
 #RUN cp /home/phis/phis-ws/phis2-ws/target/opensilex-v0.1.war /usr/local/tomcat/webapps/$PLATFORM.war
 
-ENTRYPOINT /etc/init.d/ssh start && cd /home/phis/phis-ws/phis2-ws && mvn verify
+ENTRYPOINT /etc/init.d/ssh start

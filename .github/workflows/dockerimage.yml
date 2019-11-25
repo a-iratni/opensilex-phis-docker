@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the stack
+      working-directory: ./phis-docker
       run: docker-compose up -d
     - name: run_rdf4j
       run:  docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh

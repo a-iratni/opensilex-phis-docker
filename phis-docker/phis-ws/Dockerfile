@@ -47,7 +47,7 @@ ARG PLATFORM=opensilex
 ARG PLATFORM_CODE=OS
 
 # Build the configured application
-ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/test
+ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
 #RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 
 USER root

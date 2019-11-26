@@ -18,5 +18,5 @@ jobs:
     - name: run_postgres
       run:  docker exec -i postgres /bin/bash /tmp/seed-data.sh
     - name: run_mvn_verify_VERY_GOOD
-      run: docker exec -i -w /home/phis/phis-ws/phis2-ws phis-ws /bin/bash /usr/bin/mvn verify
+      run: docker exec -i -w /home/phis/phis-ws/phis2-ws phis-ws /bin/bash /usr/bin/mvn verify -Pprod
      

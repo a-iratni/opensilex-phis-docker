@@ -1,6 +1,6 @@
 name: Docker Image CI
 
-on: [push]
+on: [repository_dispatch]
 
 jobs:
 

@@ -10,6 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Event Information
+      run: |
+          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'"
     - name: Build the stack $GITHUB_REPOSITORY
       working-directory: ./phis-docker
       run: docker-compose up -d

@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the stack
+    - name: Build the stack $GITHUB_REPOSITORY
       working-directory: ./phis-docker
       run: docker-compose up -d
     - name: run_rdf4j

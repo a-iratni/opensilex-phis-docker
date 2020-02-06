@@ -12,7 +12,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Event Information
       run: |
-          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'"
+          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'" \
+          echo "sha: '${{ github.event.client_payload.sha }}'       ref: '${{ github.event.client_payload.ref }}'"
     - name: Build the stack $GITHUB_REPOSITORY
       working-directory: ./phis-docker
       run: docker-compose up -d

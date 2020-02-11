@@ -33,8 +33,7 @@ ARG VERSION=continuous_integration
 
 # Build app
 RUN git clone -b $PR_REF $PR_REPO__CLONE_URL
-RUN cd phis-ws
-RUN git checkout $PR_SHA
+RUN cd /home/phis/phis-ws && git checkout $PR_SHA
 # Add this line for caching dependencies
 #RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 

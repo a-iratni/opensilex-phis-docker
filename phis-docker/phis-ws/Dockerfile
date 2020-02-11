@@ -1,5 +1,12 @@
 FROM tomcat:9.0
 
+ARG PR_REPO__CLONE_URL
+
+RUN echo "----------------->>>>>>>>>>>>>>>>>>>>>>>---PR_REPO__CLONE_URL-->>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
+RUN echo $PR_REPO__CLONE_URL
+
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git wget default-jdk maven ssh
 
@@ -46,9 +53,7 @@ ARG BASE_URI=http://example.com/
 ARG PLATFORM=opensilex
 ARG PLATFORM_CODE=OS
 
-RUN echo "----------------->>>>>>>>>>>>>>>>>>>>>>>---PR_REPO__CLONE_URL-->>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
-RUN echo $PR_REPO__CLONE_URL
 
 # Build the configured application
 ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod

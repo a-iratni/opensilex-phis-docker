@@ -1,11 +1,14 @@
 FROM tomcat:9.0
 
 ARG PR_REPO__CLONE_URL
+ARG PR_SHA
+ARG PR_REF
 
 RUN echo "----------------->>>>>>>>>>>>>>>>>>>>>>>---PR_REPO__CLONE_URL-->>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
-RUN echo $PR_REPO__CLONE_URL
-
+RUN echo "PR_REPO__CLONE_URL :"$PR_REPO__CLONE_URL
+RUN echo "PR_SHA : " $PR_SHA
+RUN echo "PR_REF : " $PR_REF
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git wget default-jdk maven ssh

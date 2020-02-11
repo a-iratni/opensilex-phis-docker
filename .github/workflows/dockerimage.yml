@@ -12,13 +12,12 @@ jobs:
     - uses: actions/checkout@v1
     - name: Event Information
       run: |
-          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'" \
-          echo "sha: '${{ github.event.client_payload.sha }}'       ref: '${{ github.event.client_payload.ref }}'"
+          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'"          echo "sha: '${{ github.event.client_payload.sha }}'       ref: '${{ github.event.client_payload.ref }}'"
           echo "repo__clone_url: '${{ github.event.client_payload.repo__clone_url }}'      "
     - name: Build the stack $GITHUB_REPOSITORY
       working-directory: ./phis-docker
       run: |
-          docker-compose build --build-arg PR_REPO__CLONE_URL=${{ github.event.client_payload.repo__clone_url }} --build-arg PR_SHA=${{ github.event.client_payload.sha }} --build-arg PR_REF=${{ github.event.client_payload.ref }} \
+          docker-compose build --build-arg PR_REPO__CLONE_URL=${{ github.event.client_payload.repo__clone_url }} --build-arg PR_SHA=${{ github.event.client_payload.sha }} --build-arg PR_REF=${{ github.event.client_payload.ref }}
           docker-compose up -d
     - name: run_rdf4j
       run:  docker exec -i --user root rdf4j /bin/bash /tmp/seed-data.sh

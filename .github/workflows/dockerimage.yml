@@ -14,6 +14,7 @@ jobs:
       run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'" \
           echo "sha: '${{ github.event.client_payload.sha }}'       ref: '${{ github.event.client_payload.ref }}'"
+          echo "repo__clone_url: '${{ github.event.client_payload.repo__clone_url }}'      "
     - name: Build the stack $GITHUB_REPOSITORY
       working-directory: ./phis-docker
       run: docker-compose up -d

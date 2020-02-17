@@ -23,5 +23,5 @@ jobs:
       run:  docker exec -i --user root rdf4j /bin/bash /tmp/seed-data.sh
     - name: run_postgres
       run:  docker exec -i postgres /bin/bash /tmp/seed-data.sh
-    - name: run_mvn_verify_VERY_GOOD
-      run: docker exec -i -w /home/phis/phis-ws/phis2-ws phis-ws /bin/bash /usr/bin/mvn clean verify -Pprod
+    - name: run_mvn_verify
+      run: docker exec -i -w /home/phis/phis-ws/phis2-ws phis-ws /bin/bash /usr/bin/mvn clean -Pprod
